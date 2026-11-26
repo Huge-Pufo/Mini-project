@@ -1,17 +1,27 @@
-
-// TODO: When it's full, it allocates an array twice as big, copies the items over, and releases the old one with delete[].
+// The Inventory can add an item, remove an item by its id, and say whether it holds one.
+// It releases its array in its destructor, and it's never copied: pass it by reference.
 
 #include "Item.h"
+#include <iostream>
+
+#ifndef INVENTORY_H
+#define INVENTORY_H
 
 class Inventory {
     private:
-        Item * items;
-        int numberOfItems;
-        int arraySize;
-    public: 
-        bool addItem(Item item);
-        bool removeItem(string id);
-        bool hasItem(string id);
-        Inventory(); // allocate space for 2 items initially
-        ~Inventory(); // deallocate the items array
+        int count;
+        int arrayCapacity;
+        Item ** items;
+
+        // 0x5676 -> [0x3232, 0x2523, 0x4633]
+
+    public:
+        bool addItem(Item * i);
+        void removeItem(char id);
+        bool hasItem(char id);
+        Inventory();
+        ~Inventory();
+        std::string printInventory();
 };
+
+#endif

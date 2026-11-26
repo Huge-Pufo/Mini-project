@@ -1,8 +1,8 @@
-
-
+#include "Item.h"
 
 #ifndef ROOM_H
 #define ROOM_H
+
 
 // The map has a wall of # characters all the way around its edge. More # characters are distributed around the inside of the map, and they act as walls too.
 
@@ -17,7 +17,6 @@
 class Player;
 
 
-// TODO: A thing picked up from the map has its letter as its id.
 class Room {
     private:
         
@@ -43,17 +42,16 @@ class Room {
         // #           #        #
         // #                    #
         // ######################
-    
-        // TODO: what type should the map be? probably some kind of array of type char, but we'll see
 
     public:
 
-        // TODO: placeItem leaves a thing on an open space, and takeItem takes the thing at a position off the map and returns its letter, or 0 if nothing is there.
         Room(int x, int y, Player * player); // allocate the map
         ~Room(); // deallocate the map
         void draw();
         // char tileAt(int x, int y); might consider this for later
         bool canMove(int x, int y);
+        void placeItem(Item * i, int x, int y);
+        Item takeItem(int x, int y);
 };
 
 #endif

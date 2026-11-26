@@ -1,12 +1,13 @@
 #include "Room.h"
 #include "Player.h"
+#include "Item.h"
 
 #include <iostream>
+#include <cstdlib>
 
 using namespace std;
 
 
-// TODO: some way to keep items at particular positions
 Room::Room(int x, int y, Player * player) {
 
     this->player = player;
@@ -21,6 +22,10 @@ Room::Room(int x, int y, Player * player) {
         for(int innerCounter = 0; innerCounter < x; innerCounter++) {
             if(outerCounter == 0 || outerCounter == (y - 1) || innerCounter == 0 || innerCounter == (x - 1)) {
                 this->map[outerCounter][innerCounter] = '#';
+            } else if(rand() % 8 == 0 && outerCounter > 1 && outerCounter < (y - 2) && innerCounter > 1 && innerCounter < (x - 2)) {
+                // about one inside space in eight is a wall, but never right next to the outer wall,
+                // so the player can always walk around the edge (and starts on an open space)
+                this->map[outerCounter][innerCounter] = '#';
             } else {
                 this->map[outerCounter][innerCounter] = ' ';
             }
@@ -34,7 +39,11 @@ Room::Room(int x, int y, Player * player) {
  
 }
 Room::~Room() {
-
+    // release each row, then the array of rows
+    for(int outerCounter = 0; outerCounter < height; outerCounter++) {
+        delete[] this->map[outerCounter];
+    }
+    delete[] this->map;
 }
 
 bool Room::canMove(int x, int y) {
@@ -56,4 +65,14 @@ void Room::draw() {
         }
         cout << endl;
     }
+}
+
+void Room::placeItem(Item * i, int x, int y) {
+    this->map[y][x] = i->getId();
+}
+
+Item Room::takeItem(int x, int y) {
+    Item newItem(this->map[y][x], Item.getNameFromId(this->map[y][x]));
+    this->map[y][x] = ' ';
+    return newItem;
 }

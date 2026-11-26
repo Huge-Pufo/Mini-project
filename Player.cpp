@@ -1,9 +1,12 @@
 #include "Player.h"
 #include "Room.h"
+#include "Item.h"
+#include "Inventory.h"
 
 Player::Player() {
-    this->x = 3;
-    this->y = 3;
+    // the top-left open space, which every map has
+    this->x = 1;
+    this->y = 1;
 }
 Player::~Player() {
     // leave this empty since player currently doesn't allocate any memory that it needs to clean up.
@@ -16,14 +19,16 @@ int Player::getY() {
     return this->y;
 }
 
+
+
 // return true if they player moved or false if not
+// TODO: After a move, it takes anything lying on its new space and adds it to the inventory.
 bool Player::move(char direction, Room * room) {
 
 
     // take in a direction, check which direciton it is, check if the player can move there in the room
     // then if they can, change the player x and y.
 
-    // TODO: after the player confirms their move, do item handling for the new position
     if(direction == 'w') {
         // (*room).canMove(this->x, this->y - 1);
         if(room->canMove(this->x, this->y - 1)) {
@@ -51,4 +56,14 @@ bool Player::move(char direction, Room * room) {
 
 
     return false; // either an invalid direction or can't move there
+}
+
+void Player::getItem(Room * r, int x, int y) {
+    Item itemFromMap = r->takeItem(x, y);
+    Item * item = new Item(itemFromMap.getId(), itemFromMap.getName());
+    this->inventory.addItem(item);
+}
+
+std::string Player::printInventory() {
+    return inventory.printInventory();
 }
