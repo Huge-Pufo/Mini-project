@@ -28,27 +28,12 @@ class Room {
         int height;
         char ** map;
 
-        // 0x576873ABEF -> [#,#,#,#,#,#,#,#,#,#,#,#] the type of this would be: char *
-        // 0x75873ABCDF -> [#, , , ,@, ,#, ,#, , ,#]
-        // 0x758534BCDA -> [#, , , ,@, ,#, ,#, , ,#]
-
-        // 0x3525243893 -> [0x576873ABEF, 0x75873ABCDF, 0x758534BCDA] char * * 
-
-        // ######################
-        // #                    #
-        // #              #     #
-        // #      #             #
-        // #                    #
-        // #           #        #
-        // #                    #
-        // ######################
-
     public:
 
         Room(int x, int y, Player * player); // allocate the map
         ~Room(); // deallocate the map
         void draw();
-        // char tileAt(int x, int y); might consider this for later
+        char tileAt(int x, int y);
         bool canMove(int x, int y);
         void placeItem(Item * i, int x, int y);
         Item takeItem(int x, int y);

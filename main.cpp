@@ -31,12 +31,15 @@ int main() {
     Item key('k', "key");
     room.placeItem(&key, 2,2);
 
+    Item potion('p', "potion");
+    room.placeItem(&potion, 4,4);
+
     bool isRunning = true;
 
     while(isRunning) { // main game loop
 
         room.draw();
-        cout << player.printInventory();
+        player.printInventory();
 
         char input;
         cout << endl << endl << "Please use the wasd keys to move or press q to quit: ";

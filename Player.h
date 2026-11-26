@@ -23,7 +23,7 @@ class Player {
         int getX();
         int getY();
         bool move(char direction, Room * room); 
-        std::string printInventory();
+        void printInventory();
 };
 
 #endif

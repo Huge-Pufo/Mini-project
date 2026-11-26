@@ -17,6 +17,8 @@ std::string Item::getName() {
 std::string Item::getNameFromId(char id) {
     if(id == 'k') {
         return "key";
+    } if(id == 'p') {
+        return "potion";
     } else {
         return "N/A";
     }

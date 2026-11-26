@@ -33,7 +33,7 @@ bool Inventory::addItem(Item * i) {
 }
 void Inventory::removeItem(char id) {
     bool deleted = false;
-    for(int x; x < count; x++) {
+    for(int x = 0; x < count; x++) {
         if(this->items[x]->getId() == id) {
             delete this->items[x];
             this->items[x] = nullptr;
@@ -53,7 +53,7 @@ void Inventory::removeItem(char id) {
 }
 
 bool Inventory::hasItem(char id) {
-    for(int x; x < count; x++) {
+    for(int x = 0; x < count; x++) {
         if(this->items[x]->getId() == id) {
             return true;
         }
@@ -65,15 +65,20 @@ Inventory::Inventory() {
     this->arrayCapacity = 2;
     this->items = new Item*[arrayCapacity];
 }
-~Inventory::Inventory() {
-    for(int x; x < count; x++) {
+Inventory::~Inventory() {
+    for(int x = 0; x < count; x++) {
         delete this->items[x];
     }
     delete[] this->items;
 }
 
-std::string Inventory::printInventory() {
-    for(int x; x < count; x++) {
-        std::cout << this->items[x]->getName() << std::endl;
+void Inventory::printInventory() {
+    std::cout << std::endl << "Player's inventory: ";
+    for(int x = 0; x < count; x++) {
+        std::cout << this->items[x]->getName();
+        if(x != (count - 1)) {
+            std::cout << ", ";
+        }
     }
+    std::cout << std::endl;
 }

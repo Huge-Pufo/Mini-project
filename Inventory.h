@@ -21,7 +21,7 @@ class Inventory {
         bool hasItem(char id);
         Inventory();
         ~Inventory();
-        std::string printInventory();
+        void printInventory();
 };
 
 #endif

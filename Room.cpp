@@ -72,7 +72,11 @@ void Room::placeItem(Item * i, int x, int y) {
 }
 
 Item Room::takeItem(int x, int y) {
-    Item newItem(this->map[y][x], Item.getNameFromId(this->map[y][x]));
+    Item newItem(this->map[y][x], Item::getNameFromId(this->map[y][x]));
     this->map[y][x] = ' ';
     return newItem;
+}
+
+char Room::tileAt(int x, int y) {
+    return this->map[y][x];
 }

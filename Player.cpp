@@ -33,22 +33,34 @@ bool Player::move(char direction, Room * room) {
         // (*room).canMove(this->x, this->y - 1);
         if(room->canMove(this->x, this->y - 1)) {
             this->y -= 1;
+            if(room->tileAt(this->x, this->y) != ' ') {
+                this->getItem(room, this->x, this->y);
+            }
             return true;
         }
         // check if there is anything blocking us at the position we WOULD go to if we moved in that direction.
     } else if(direction == 'a') {
         if(room->canMove(this->x - 1, this->y)) {
             this->x -= 1;
+            if(room->tileAt(this->x, this->y) != ' ') {
+                this->getItem(room, this->x, this->y);
+            }
             return true;
         }
     } else if(direction == 'd') {
         if(room->canMove(this->x + 1, this->y)) {
             this->x += 1;
+            if(room->tileAt(this->x, this->y) != ' ') {
+                this->getItem(room, this->x, this->y);
+            }
             return true;
         }
     } else if(direction == 's') {
         if(room->canMove(this->x, this->y + 1)) {
             this->y += 1;
+            if(room->tileAt(this->x, this->y) != ' ') {
+                this->getItem(room, this->x, this->y);
+            }
             return true;
         }
     }
@@ -64,6 +76,6 @@ void Player::getItem(Room * r, int x, int y) {
     this->inventory.addItem(item);
 }
 
-std::string Player::printInventory() {
+void Player::printInventory() {
     return inventory.printInventory();
 }
